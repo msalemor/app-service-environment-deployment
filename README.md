@@ -102,7 +102,6 @@ stages:
         command: 'build'
         projects: |
           $(workingDirectory)/*.csproj
-        #arguments: --output $(System.DefaultWorkingDirectory)/publish_output --configuration Release
 
     - task: DotNetCoreCLI@2
       displayName: Publish
