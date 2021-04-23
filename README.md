@@ -180,13 +180,6 @@ stages:
         deploy:
 
           steps:
-          # - task: AzureRmWebAppDeployment@4
-          #   displayName: 'Deploying Web App to Test environment'
-          #   inputs:
-          #     ConnectedServiceName: '$(serviceConnection)'
-          #     appType: webApp
-          #     WebAppName: $(appName)
-
           - task: AzureAppServiceManage@0
             displayName: 'Swap'
             inputs:
