@@ -1,7 +1,13 @@
-# app-service-environment-deployment
-A sample yaml pipeline to deploy to an ASE environment
+# Deploy a .Net Core App to App Service Environments using ADO
+
 
 ## What is an App Service Environment
+
+- Provides isolatid networking and hardware
+- Can be deployed inside a VNET
+- Provides advanced networking control capabilities
+- Ideal choice in highly regulated environment such as finance, PCI, HIPAA and government
+- Requires DNS entries and inbound and outbound ports to operate
 
 ### Requirements for deployting to an internal ASE from ADO
 
