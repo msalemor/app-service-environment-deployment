@@ -79,11 +79,6 @@ trigger:
 - master
 
 variables:
-  # Azure Resource Manager connection created during pipeline creation
-  azureSubscription: '{{ azureRmConnection.Id }}'
-  # Agent VM image name
-  vmImageName: 'vmagent1'
-  # Working Directory
   workingDirectory: 'DemoMVApp'
   serviceConnection: 'asev3svcconnection'
   appName: 'aseapp2'
