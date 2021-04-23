@@ -67,7 +67,7 @@ pool:
               package: '$(Pipeline.Workspace)/drop/$(Build.BuildId).zip'
 ```
 
-### Complete code
+### Complete pipeline
 
 ```yaml
 # ASP.NET Core (.NET Framework)
