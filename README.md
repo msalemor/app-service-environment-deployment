@@ -11,9 +11,8 @@
 
 ### Requirements for deployting to an internal ASE from ADO
 
-- Deploy a self-hosted agent to the VNET where the ASE is deployed
-- Add the build tools (Git, Dotnet CLI, etc.) to the agent
-- Make sure that the pipeline uses the self-hosted agent to process the pipeline
+- A self-hosted agent, with tools (Git, Dotnet CLI, etc.) to the VNET where the ASE is deployed
+- The pipeline needs to use this self-hosted agent to process the pipeline
 
 ```yaml
 pool:
