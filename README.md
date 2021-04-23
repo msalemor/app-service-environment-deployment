@@ -22,11 +22,11 @@ pool:
 
 ## About the yaml pipeline
 
-- Build and publish the .Net Core app
-- Save the artifacts
-- This pipeline will the deploy the code from the artifact location to a dev/test ASE
-- Then, upon approval, it will swap dev with test
-- Then, upon approval, will deploy the code to the production ASE from the artificate location
+- Builds and publishs the .Net Core app
+- Saves the artifacts
+- Deploys the code from the artifact location to a dev/test ASE
+- Upon approval, swaos dev with test slots
+- Upon approval, deploys the code to the production ASE from the artificate location
 
 ### Deploy to Dev
 
