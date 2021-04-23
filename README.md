@@ -3,9 +3,10 @@
 
 ## What is an App Service Environment
 
-- Provides isolatid networking and hardware
+- Provides isolated hardware and networking
 - Can be deployed inside a VNET
 - Provides advanced networking control capabilities
+- High scalability
 - Ideal choice in highly regulated environment such as finance, PCI, HIPAA and government
 - Requires DNS entries and inbound and outbound ports to operate
 
