@@ -232,3 +232,7 @@ stages:
               WebAppName: $(prodAppName)
               Action: 'Start Azure App Service'
 ```              
+
+## References
+
+- https://docs.microsoft.com/en-us/azure/devops/pipelines/process/stages?view=azure-devops&tabs=yaml
