@@ -40,6 +40,8 @@ pool:
               ConnectedServiceName: '$(serviceConnection)'
               appType: webApp
               WebAppName: $(appName)
+              deployToSlotOrASE: true
+              ResourceGroupName: $(rgName)
               SlotName: 'dev'
               package: '$(Pipeline.Workspace)/drop/$(Build.BuildId).zip'
 ```
@@ -82,22 +84,27 @@ trigger:
 - master
 
 variables:
+  # Azure Resource Manager connection created during pipeline creation
+  azureSubscription: '{{ azureRmConnection.Id }}'
+  # Agent VM image name
+  vmImageName: 'vmagent1'
+  # Working Directory
   workingDirectory: 'DemoMVApp'
   serviceConnection: 'asev3svcconnection'
-  appName: 'aseapp2'
-  prodAppName: 'aseapp3'
   rgName: 'rg-asev3-eus-demo'
+  appName: 'alemortest'
+  prodAppName: 'alemorprod'
 
 stages:
 - stage: Build
   displayName: Build stage
-
+  pool:
+      name: 'Windows Hosts'
+  
   jobs:
   - job: Build
     displayName: Build
-    pool:
-      name: 'Windows Hosts'
-
+        
     steps:
     - task: DotNetCoreCLI@2
       displayName: Build
@@ -110,9 +117,10 @@ stages:
       displayName: Publish
       inputs:
         command: 'publish'
-        projects: |
-          $(workingDirectory)/*.csproj
-        arguments: --output $(System.DefaultWorkingDirectory)/publish_output --configuration Release
+        publishWebProjects: true
+        arguments: '--output $(System.DefaultWorkingDirectory)/publish_output --configuration Release'
+        zipAfterPublish: false
+        modifyOutputPath: false
 
     - task: ArchiveFiles@2
       displayName: 'Archive files'
@@ -129,14 +137,14 @@ stages:
 - stage: Deploy
   displayName: Deploy to dev
   dependsOn: Build
-  condition: succeeded()      
+  condition: succeeded()
+  pool:
+      name: 'Windows Hosts'
 
   jobs:
   - deployment: Deploy
     displayName: Deploy to dev
     environment: 'dev'
-    pool:
-      name: 'Windows Hosts'
 
     strategy:
       runOnce:
@@ -156,6 +164,8 @@ stages:
               ConnectedServiceName: '$(serviceConnection)'
               appType: webApp
               WebAppName: $(appName)
+              deployToSlotOrASE: true
+              ResourceGroupName: $(rgName)
               SlotName: 'dev'
               package: '$(Pipeline.Workspace)/drop/$(Build.BuildId).zip'
 
@@ -169,20 +179,21 @@ stages:
 - stage: Swap
   displayName: Swap Dev to Test
   dependsOn: Build
-  condition: succeeded()      
+  condition: succeeded()
+  pool:
+      name: 'Windows Hosts'
 
   jobs:
   - deployment: Deploy
     displayName: Deploy to test
     environment: 'test'
-    pool:
-      name: 'Windows Hosts'
 
     strategy:
       runOnce:
         deploy:
 
           steps:
+
           - task: AzureAppServiceManage@0
             displayName: 'Swap'
             inputs:
@@ -195,14 +206,14 @@ stages:
 - stage: Deploy_Prod
   displayName: 'Deploy to prod'
   dependsOn: Build
-  condition: succeeded()      
+  condition: succeeded()
+  pool:
+      name: 'Windows Hosts'
 
   jobs:
   - deployment: Deploy_Prod
     displayName: 'Deploy to prod'
     environment: 'prod'
-    pool:
-      name: 'Windows Hosts'
 
     strategy:
       runOnce:
