@@ -17,11 +17,7 @@
 - Ability to create and execute pipelines
 - A self-hosted agent in a VNET, with the deployment tools (Git, Dotnet CLI, etc.), having access to the ASE
 - The pipeline needs to use this self-hosted agent to process the pipeline
-
-```yaml
-pool:
-      name: 'Windows Hosts'
-```
+- An ADO service connection to the resource group where the ASE is hosted
 
 ## About the yaml pipeline
 
