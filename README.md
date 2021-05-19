@@ -13,9 +13,9 @@
 ### Requirements for deployting to an internal ASE from ADO
 
 - Azure DevOps account
-- Code deployed to a project
+- Code deployed to a repo
 - Ability to create and execute pipelines
-- A self-hosted agent, with tools (Git, Dotnet CLI, etc.) to the VNET where the ASE is deployed
+- A self-hosted agent in a VNET, with the deployment tools (Git, Dotnet CLI, etc.), having access to the ASE
 - The pipeline needs to use this self-hosted agent to process the pipeline
 
 ```yaml
